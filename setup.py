@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="karboai",
-    version="1.0.8",
+    version="1.0.9",
     description="Python library for https://karboai.com",
     long_description=long_description,
     long_description_content_type="text/markdown",

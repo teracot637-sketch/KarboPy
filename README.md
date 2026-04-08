@@ -28,6 +28,10 @@ async def echo(ctx):
 async def main():
     karbo.bind(router)
     await karbo.attach()
+    try:
+        await asyncio.Event().wait()
+    finally:
+        await karbo.close()
 
 asyncio.run(main())
 ```

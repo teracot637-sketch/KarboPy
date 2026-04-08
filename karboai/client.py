@@ -67,6 +67,13 @@ class KarboAI:
     def bind(self, *routers: Router) -> None:
         self._dispatcher.bind(*routers)
 
+    async def close(self) -> None:
+        await self._dispatcher.close()
+        await self._http.close()
+
+    async def stop(self) -> None:
+        await self.close()
+
     async def _send(self, *, chat_id: str, content: str | None = None, images: list[str] | None = None, reply_message_id: str | None = None) -> MessageResponse:
         body: dict = {"chat_id": chat_id}
         if content:

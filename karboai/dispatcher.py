@@ -63,3 +63,7 @@ class Dispatcher:
             transports=["websocket"],
             auth={"bot_token": token},
         )
+
+    async def close(self) -> None:
+        if self._socket and not self._socket.closed:
+            await self._socket.disconnect()
