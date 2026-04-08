@@ -1,4 +1,5 @@
 from karboai import KarboAI, Router, bold, italic
+import asyncio
 
 karbo = KarboAI(
     token="your-bot-token",
@@ -32,12 +33,12 @@ async def on_join(ctx):
     await karbo.text(ctx.message.chat_id, f"Welcome, {ctx.message.author.nickname}!")
 
 
-karbo.bind(router)
-karbo.attach()
+async def main():
+    karbo.bind(router)
+    await karbo.attach()
+    try:
+        await asyncio.Event().wait()
+    finally:
+        await karbo.close()
 
-import asyncio
-
-try:
-    asyncio.get_event_loop().run_forever()
-except KeyboardInterrupt:
-    pass
+asyncio.run(main())
