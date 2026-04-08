@@ -27,7 +27,7 @@ class Dispatcher:
                 self._listeners[event].extend(items)
             logger.info("bound router: %s", router.name)
 
-    def attach(self, token: str, callback) -> None:
+    async def attach(self, token: str, callback) -> None:
         sio = socketio.AsyncClient()
 
         @sio.on("connect")
@@ -57,7 +57,7 @@ class Dispatcher:
                     await listener.callback(Context(self._client, msg))
 
         self._socket = sio
-        sio.connect(
+        await sio.connect(
             KARBO_API,
             socketio_path="/bot/ws",
             transports=["websocket"],

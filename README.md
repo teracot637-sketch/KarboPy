@@ -11,6 +11,7 @@ pip install karboai
 ## Usage
 
 ```python
+import asyncio
 from karboai import KarboAI, Router, bold
 
 karbo = KarboAI(token="your-token", id="your-bot-id", enable_logging=True)
@@ -24,8 +25,11 @@ async def start(ctx):
 async def echo(ctx):
     await karbo.text(ctx.message.chat_id, ctx.message.content)
 
-karbo.bind(router)
-karbo.attach()
+async def main():
+    karbo.bind(router)
+    await karbo.attach()
+
+asyncio.run(main())
 ```
 
 ## API

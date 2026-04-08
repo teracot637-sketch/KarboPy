@@ -59,10 +59,10 @@ class KarboAI:
         resp = await self._http.post(f"/bot/chat/{chat_id}/kick", {"user_id": user_id}, OkResponse)
         return resp.ok
 
-    def attach(self, callback: Callable[[], None] | None = None) -> None:
+    async def attach(self, callback: Callable[[], None] | None = None) -> None:
         async def _cb():
             pass
-        self._dispatcher.attach(self._token, callback or _cb)
+        await self._dispatcher.attach(self._token, callback or _cb)
 
     def bind(self, *routers: Router) -> None:
         self._dispatcher.bind(*routers)
